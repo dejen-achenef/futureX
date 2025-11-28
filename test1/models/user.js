@@ -63,6 +63,8 @@ export default (sequelize, DataTypes) => {
       sequelize,
       modelName: "User",
       tableName: "users",
+      underscored: true,
+      timestamps: true,
       hooks: {
         beforeCreate: async (user) => {
           if (user.password) {

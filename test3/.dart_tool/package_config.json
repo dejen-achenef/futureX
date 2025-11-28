@@ -749,12 +749,12 @@
       "name": "video_learning_app",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.9"
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.10.0",
+  "generatorVersion": "3.10.1",
   "flutterRoot": "file:///C:/src/flutter",
-  "flutterVersion": "3.38.1",
+  "flutterVersion": "3.38.3",
   "pubCache": "file:///C:/Users/dejen/AppData/Local/Pub/Cache"
 }

@@ -7,11 +7,10 @@
       "name": "flutter_push",
       "version": "1.0.0+1",
       "dependencies": [
-        "crypto",
+        "firebase_core",
+        "firebase_messaging",
         "flutter",
-        "flutter_secure_storage",
-        "onesignal_flutter",
-        "path_provider"
+        "flutter_local_notifications"
       ],
       "devDependencies": [
         "flutter_lints",
@@ -44,42 +43,36 @@
       ]
     },
     {
-      "name": "crypto",
-      "version": "3.0.7",
+      "name": "flutter_local_notifications",
+      "version": "16.3.3",
       "dependencies": [
-        "typed_data"
+        "clock",
+        "flutter",
+        "flutter_local_notifications_linux",
+        "flutter_local_notifications_platform_interface",
+        "timezone"
       ]
     },
     {
-      "name": "path_provider",
-      "version": "2.1.5",
+      "name": "firebase_messaging",
+      "version": "14.7.10",
       "dependencies": [
+        "firebase_core",
+        "firebase_core_platform_interface",
+        "firebase_messaging_platform_interface",
+        "firebase_messaging_web",
         "flutter",
-        "path_provider_android",
-        "path_provider_foundation",
-        "path_provider_linux",
-        "path_provider_platform_interface",
-        "path_provider_windows"
-      ]
-    },
-    {
-      "name": "flutter_secure_storage",
-      "version": "9.2.4",
-      "dependencies": [
-        "flutter",
-        "flutter_secure_storage_linux",
-        "flutter_secure_storage_macos",
-        "flutter_secure_storage_platform_interface",
-        "flutter_secure_storage_web",
-        "flutter_secure_storage_windows",
         "meta"
       ]
     },
     {
-      "name": "onesignal_flutter",
-      "version": "5.3.4",
+      "name": "firebase_core",
+      "version": "2.32.0",
       "dependencies": [
-        "flutter"
+        "firebase_core_platform_interface",
+        "firebase_core_web",
+        "flutter",
+        "meta"
       ]
     },
     {
@@ -184,102 +177,77 @@
       ]
     },
     {
-      "name": "typed_data",
-      "version": "1.4.0",
+      "name": "timezone",
+      "version": "0.9.4",
       "dependencies": [
-        "collection"
+        "path"
       ]
     },
     {
-      "name": "path_provider_windows",
-      "version": "2.3.0",
-      "dependencies": [
-        "ffi",
-        "flutter",
-        "path",
-        "path_provider_platform_interface"
-      ]
-    },
-    {
-      "name": "path_provider_platform_interface",
-      "version": "2.1.2",
+      "name": "flutter_local_notifications_platform_interface",
+      "version": "7.2.0",
       "dependencies": [
         "flutter",
-        "platform",
         "plugin_platform_interface"
       ]
     },
     {
-      "name": "path_provider_linux",
-      "version": "2.2.1",
+      "name": "flutter_local_notifications_linux",
+      "version": "4.0.1",
       "dependencies": [
+        "dbus",
         "ffi",
         "flutter",
+        "flutter_local_notifications_platform_interface",
         "path",
-        "path_provider_platform_interface",
         "xdg_directories"
       ]
     },
     {
-      "name": "path_provider_foundation",
-      "version": "2.5.1",
+      "name": "firebase_messaging_web",
+      "version": "3.5.18",
       "dependencies": [
+        "_flutterfire_internals",
+        "firebase_core",
+        "firebase_core_web",
+        "firebase_messaging_platform_interface",
         "flutter",
-        "path_provider_platform_interface"
-      ]
-    },
-    {
-      "name": "path_provider_android",
-      "version": "2.2.22",
-      "dependencies": [
-        "flutter",
-        "path_provider_platform_interface"
-      ]
-    },
-    {
-      "name": "flutter_secure_storage_windows",
-      "version": "3.1.2",
-      "dependencies": [
-        "ffi",
-        "flutter",
-        "flutter_secure_storage_platform_interface",
-        "path",
-        "path_provider",
-        "win32"
-      ]
-    },
-    {
-      "name": "flutter_secure_storage_web",
-      "version": "1.2.1",
-      "dependencies": [
-        "flutter",
-        "flutter_secure_storage_platform_interface",
         "flutter_web_plugins",
-        "js"
+        "js",
+        "meta"
       ]
     },
     {
-      "name": "flutter_secure_storage_platform_interface",
-      "version": "1.1.2",
+      "name": "firebase_messaging_platform_interface",
+      "version": "4.5.37",
       "dependencies": [
+        "_flutterfire_internals",
+        "firebase_core",
         "flutter",
+        "meta",
         "plugin_platform_interface"
       ]
     },
     {
-      "name": "flutter_secure_storage_macos",
-      "version": "3.1.3",
+      "name": "firebase_core_platform_interface",
+      "version": "5.4.2",
       "dependencies": [
+        "collection",
         "flutter",
-        "flutter_secure_storage_platform_interface"
+        "flutter_test",
+        "meta",
+        "plugin_platform_interface"
       ]
     },
     {
-      "name": "flutter_secure_storage_linux",
-      "version": "1.2.3",
+      "name": "firebase_core_web",
+      "version": "2.24.0",
       "dependencies": [
+        "firebase_core_platform_interface",
         "flutter",
-        "flutter_secure_storage_platform_interface"
+        "flutter_web_plugins",
+        "meta",
+        "web"
       ]
     },
     {
@@ -357,21 +325,11 @@
       ]
     },
     {
-      "name": "ffi",
-      "version": "2.1.4",
-      "dependencies": []
-    },
-    {
       "name": "plugin_platform_interface",
       "version": "2.1.8",
       "dependencies": [
         "meta"
       ]
-    },
-    {
-      "name": "platform",
-      "version": "3.1.6",
-      "dependencies": []
     },
     {
       "name": "xdg_directories",
@@ -382,10 +340,18 @@
       ]
     },
     {
-      "name": "win32",
-      "version": "5.15.0",
+      "name": "ffi",
+      "version": "2.1.4",
+      "dependencies": []
+    },
+    {
+      "name": "dbus",
+      "version": "0.7.11",
       "dependencies": [
-        "ffi"
+        "args",
+        "ffi",
+        "meta",
+        "xml"
       ]
     },
     {
@@ -403,9 +369,47 @@
       ]
     },
     {
+      "name": "_flutterfire_internals",
+      "version": "1.3.35",
+      "dependencies": [
+        "collection",
+        "firebase_core",
+        "firebase_core_platform_interface",
+        "flutter",
+        "meta"
+      ]
+    },
+    {
+      "name": "web",
+      "version": "1.1.1",
+      "dependencies": []
+    },
+    {
       "name": "vm_service",
       "version": "15.0.2",
       "dependencies": []
+    },
+    {
+      "name": "xml",
+      "version": "6.6.1",
+      "dependencies": [
+        "collection",
+        "meta",
+        "petitparser"
+      ]
+    },
+    {
+      "name": "args",
+      "version": "2.7.0",
+      "dependencies": []
+    },
+    {
+      "name": "petitparser",
+      "version": "7.0.1",
+      "dependencies": [
+        "collection",
+        "meta"
+      ]
     }
   ],
   "configVersion": 1

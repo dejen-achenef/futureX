@@ -68,6 +68,8 @@ export default (sequelize, DataTypes) => {
       sequelize,
       modelName: 'Video',
       tableName: 'videos',
+      underscored: true,
+      timestamps: true,
       indexes: [
         {
           fields: ['category'],

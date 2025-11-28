@@ -11,7 +11,7 @@ const env = process.env.NODE_ENV || "development";
 
 // Use require for the config file since it's CommonJS (needed for Sequelize CLI)
 const require = createRequire(import.meta.url);
-const config = require("../config/database.js")[env];
+const config = require("../config/database.cjs")[env];
 const db = {};
 
 let sequelize;

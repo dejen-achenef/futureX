@@ -31,4 +31,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/report/summary')" || exit 1
 
 # Start the application with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120", "reporting_service.wsgi:application"]
+CMD ["sh", "-c", "gunicorn reporting_service.wsgi:application --bind 0.0.0.0:$PORT --workers 4 --timeout 120"]

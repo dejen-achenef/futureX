@@ -96,7 +96,7 @@ services:
       context: ./test2
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: ${VITE_API_URL:-http://localhost:3000}
+        VITE_API_URL: ${VITE_API_URL:-https://futurex-5.onrender.com}
     container_name: video_learning_frontend
     ports:
       - "${REACT_PORT:-3001}:80"
@@ -129,7 +129,7 @@ services:
   #     context: ./test3
   #     dockerfile: Dockerfile
   #     args:
-  #       API_URL: ${API_URL:-http://localhost:3000}
+  #       API_URL: ${API_URL:-https://futurex-5.onrender.com}
   #   container_name: video_learning_flutter
   #   ports:
   #     - "${FLUTTER_PORT:-3002}:80"

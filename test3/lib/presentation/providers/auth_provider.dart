@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/auth_repository.dart';
@@ -6,16 +7,30 @@ import '../../core/network/api_service.dart';
 import '../../core/storage/secure_storage_service.dart';
 
 String _getApiBaseUrl() {
-  // For Android emulator - use port 5000 (matching server .env)
+  // Use production API URL
+  const String productionUrl = 'https://futurex-5.onrender.com';
+  
+  // For web builds, use production URL
+  if (kIsWeb) {
+    return productionUrl;
+  }
+  
+  // For Android emulator - use production URL (or localhost for local dev)
   if (Platform.isAndroid) {
-    return 'http://10.0.2.2:5000';
+    // Uncomment for local development:
+    // return 'http://10.0.2.2:3000';
+    return productionUrl;
   }
-  // For iOS simulator
+  
+  // For iOS simulator - use production URL (or localhost for local dev)
   if (Platform.isIOS) {
-    return 'http://localhost:5000';
+    // Uncomment for local development:
+    // return 'http://localhost:3000';
+    return productionUrl;
   }
-  // Default fallback
-  return 'http://localhost:5000';
+  
+  // Default fallback to production
+  return productionUrl;
 }
 
 final apiServiceProvider = Provider<ApiService>((ref) {

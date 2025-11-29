@@ -33,7 +33,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.video_learning_app"
-    compileSdkVersion 34
+    compileSdkVersion 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -52,7 +52,7 @@ android {
     defaultConfig {
         applicationId "com.example.video_learning_app"
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -60,6 +60,10 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.debug
+            // Enable code shrinking and obfuscation
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -68,5 +72,8 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    // Add Play Core library for split APKs
+    implementation 'com.google.android.play:core:1.10.3'
+}
 

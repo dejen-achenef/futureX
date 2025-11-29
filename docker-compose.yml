@@ -1,0 +1,165 @@
+services:
+  # Node.js API (test1)
+  node_api:
+    build:
+      context: ./test1
+      dockerfile: Dockerfile
+    container_name: video_learning_api
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      # Railway MySQL Configuration (use .env file for security)
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-24h}
+
+    ports:
+      - "${NODE_API_PORT:-3000}:3000"
+
+    networks:
+      - app_network
+
+    restart: always
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    volumes:
+      - node_uploads:/app/uploads
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Django Reporting Service (test4)
+  django_api:
+    build:
+      context: ./test4
+      dockerfile: Dockerfile
+    container_name: video_learning_django
+    environment:
+      NODE_API_URL: http://node_api:3000
+      SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DEBUG: "False"
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3001,http://localhost:3002}
+
+    ports:
+      - "${DJANGO_API_PORT:-8000}:8000"
+
+    depends_on:
+      - node_api
+
+    networks:
+      - app_network
+
+    restart: always
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/report/summary')",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # React Frontend (test2)
+  react_frontend:
+    build:
+      context: ./test2
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3000}
+    container_name: video_learning_frontend
+    ports:
+      - "${REACT_PORT:-3001}:80"
+
+    depends_on:
+      - node_api
+
+    networks:
+      - app_network
+
+    restart: always
+
+    healthcheck:
+      test:
+        ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Flutter Web App (test3)
+  # flutter_web:
+  #   build:
+  #     context: ./test3
+  #     dockerfile: Dockerfile
+  #     args:
+  #       API_URL: ${API_URL:-http://localhost:3000}
+  #   container_name: video_learning_flutter
+  #   ports:
+  #     - "${FLUTTER_PORT:-3002}:80"
+
+  #   depends_on:
+  #     - node_api
+
+  #   networks:
+  #     - app_network
+
+  #   restart: always
+
+  # healthcheck:
+  #   test:
+  #     ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+  #   interval: 30s
+  #   timeout: 10s
+  #   retries: 3
+  #   start_period: 10s
+
+  # logging:
+  #   driver: "json-file"
+  #   options:
+  #     max-size: "10m"
+  #     max-file: "3"
+
+volumes:
+  node_uploads:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge

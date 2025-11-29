@@ -5,8 +5,9 @@
   "description": "React Dashboard for Video Learning Management",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
+    "type-check": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
@@ -35,4 +36,3 @@
     "postcss": "^8.4.32"
   }
 }
-
